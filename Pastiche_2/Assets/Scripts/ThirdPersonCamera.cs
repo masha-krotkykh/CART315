@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
-    public float speed = 1;
+    public float speed = .1f;
     public Transform Target;
     public Camera cam;
 
@@ -23,7 +23,7 @@ public class ThirdPersonCamera : MonoBehaviour
         lookrotation.x = transform.rotation.x;
         lookrotation.z = transform.rotation.z;
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookrotation, Time.deltaTime * 100);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookrotation, Time.deltaTime * 10);
 
         transform.position = Vector3.Slerp(transform.position, Target.position, Time.deltaTime * speed);
     }
