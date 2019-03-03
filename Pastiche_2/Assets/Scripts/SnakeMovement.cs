@@ -11,8 +11,9 @@ public class SnakeMovement : MonoBehaviour
 
     public int beginsize;
 
-    public float speed = 1;
-    public float rotationspeed = 50;
+    public float beginSpeed = 3;
+    float speed;
+    public float rotationspeed = 70;
 
     public float TimeFromLastRetry;
 
@@ -29,6 +30,7 @@ public class SnakeMovement : MonoBehaviour
     public bool isAlive;
 
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +43,7 @@ public class SnakeMovement : MonoBehaviour
 
         deathScreen.SetActive(false);
 
-        for (int i = BodyParts.Count - 1; i > 1; i--)
+        for (int i = BodyParts.Count - 1; i > 0; i--)
         {
             Destroy(BodyParts[i].gameObject);
 
@@ -49,18 +51,17 @@ public class SnakeMovement : MonoBehaviour
         }
 
         BodyParts[0].position = new Vector3(0, 0.5f, 0);
-
         BodyParts[0].rotation = Quaternion.identity;
-
         currentScore.gameObject.SetActive(true);
-
         currentScore.text = "Score: 0";
+
+        speed = beginSpeed;
 
         isAlive = true;
 
-        for (int i = 0; i < beginsize - 1; i++)
+        for (int i = 0; i < beginsize; i++)
         {
-            AddBodyPart();
+                AddBodyPart();
         }
 
         BodyParts[0].position = new Vector3(2, 0.5f, 0);
@@ -69,11 +70,11 @@ public class SnakeMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isAlive)
+        //if(isAlive)
             Move();
 
-        if (Input.GetKey(KeyCode.Q))
-            AddBodyPart();
+        //if (Input.GetKey(KeyCode.Q))
+        //AddBodyPart();
     }
 
     public void Move()
@@ -112,13 +113,16 @@ public class SnakeMovement : MonoBehaviour
 
     public void AddBodyPart() 
     {
-        Transform newpart = (Instantiate(bodyprefab, BodyParts[BodyParts.Count - 1].position, BodyParts[BodyParts.Count - 1].rotation) as GameObject).transform;
+        if (isAlive) {
+            Transform newpart = (Instantiate(bodyprefab, BodyParts[BodyParts.Count - 1].position, BodyParts[BodyParts.Count - 1].rotation) as GameObject).transform;
 
-        newpart.SetParent(transform);
+            newpart.SetParent(transform);
 
-        BodyParts.Add(newpart);
+            BodyParts.Add(newpart);
 
-        currentScore.text = "Score: " + (BodyParts.Count - beginsize).ToString();
+            currentScore.text = "Score: " + (BodyParts.Count - beginsize - 1).ToString();
+        }
+        speed += .1f;
     }
 
     public void die()
@@ -130,5 +134,12 @@ public class SnakeMovement : MonoBehaviour
         currentScore.gameObject.SetActive(false);
 
         deathScreen.SetActive(true);
+
+        for (int i = BodyParts.Count - 1; i > beginsize; i--)
+        {
+            Destroy(BodyParts[i].gameObject);
+
+            BodyParts.Remove(BodyParts[i]);
+        }
     }
 }

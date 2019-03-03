@@ -20,7 +20,7 @@ public class SnakeHead : MonoBehaviour
         }
         else 
         {
-            if(collision.transform != movement.BodyParts[1] && movement.isAlive) 
+            if(collision.transform != movement.BodyParts[1] && movement.isAlive && collision.gameObject.tag != "Safe") 
             {
                 if (Time.time - movement.TimeFromLastRetry > 5)
                     movement.die();
