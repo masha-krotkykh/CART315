@@ -9,6 +9,8 @@ public class SnakeMovement : MonoBehaviour
 
     public float mindistance = 0.25f;
 
+    public float constY = 0.5f;
+
     public int beginsize;
 
     public float beginSpeed = 3;
@@ -64,7 +66,9 @@ public class SnakeMovement : MonoBehaviour
                 AddBodyPart();
         }
 
-        BodyParts[0].position = new Vector3(2, 0.5f, 0);
+
+
+        BodyParts[0].position = new Vector3(2, constY, 0);
     }
 
     // Update is called once per frame
@@ -84,6 +88,9 @@ public class SnakeMovement : MonoBehaviour
         if(Input.GetKey(KeyCode.W))
             curspeed *= 2;
 
+        if (Input.GetKey(KeyCode.S))
+            curspeed /= 2;
+
         BodyParts[0].Translate(BodyParts[0].forward * curspeed * Time.smoothDeltaTime, Space.World);
 
         if (Input.GetAxis("Horizontal") != 0)
@@ -98,7 +105,7 @@ public class SnakeMovement : MonoBehaviour
 
             Vector3 newpos = prevBodyPart.position;
 
-            newpos.y = BodyParts[0].position.y;
+            newpos.y = constY;
 
             float T = Time.deltaTime * dis / mindistance * curspeed;
 
