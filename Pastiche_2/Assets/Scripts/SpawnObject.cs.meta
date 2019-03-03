@@ -3,7 +3,11 @@ guid: 96a5ba4a3e4d743cbae092e0aa9f0bc0
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - foodPrefab: {fileID: 2072876604694223455, guid: c175bec25d2634acb8b98f99f8bf0c3c,
+      type: 3}
+  - portalPrefab: {fileID: 907783397655837009, guid: 6c0a882b6a9924d3292b583794bf227f,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -18,13 +18,20 @@ public class SnakeHead : MonoBehaviour
 
             SO.SpawnFood();
         }
-        else 
+
+        else if(collision.gameObject.tag == "Portal")
         {
-            if(collision.transform != movement.BodyParts[1] && movement.isAlive && collision.gameObject.tag != "Safe") 
-            {
-                if (Time.time - movement.TimeFromLastRetry > 5)
-                    movement.die();
-            }
+            this.transform.position = new Vector3(0, 0.5f, 0);
+
+            Destroy(collision.gameObject);
+
+            SO.SpawnPortal();
+        }
+
+        else if(collision.transform != movement.BodyParts[1] && movement.isAlive && collision.gameObject.tag != "Safe" && collision.gameObject.tag != "Portal") 
+        {
+            if (Time.time - movement.TimeFromLastRetry > 5)
+                movement.die();
         }
     }
 
