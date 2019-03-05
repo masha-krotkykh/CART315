@@ -9,6 +9,7 @@ public class SnakeHead : MonoBehaviour
     public SnakeMovement movement;
     public SpawnObject SO;
 
+
     // Define behaviour on different collisions
     // ON COLLISION WITH FOOD OBJECT
 
@@ -47,6 +48,13 @@ public class SnakeHead : MonoBehaviour
 
             // Spawn another instance of portal object
             SO.SpawnPortal();
+        }
+
+        // ON COLLISION WITH GEM OBJECT
+        // is a win condition
+        else if (collision.gameObject.tag == "Finish")
+        {
+            movement.win();
         }
 
         // ON COLLISION WITH OTHER OBJECTS (including walls and own tail)

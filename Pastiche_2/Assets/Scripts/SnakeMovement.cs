@@ -7,7 +7,7 @@ public class SnakeMovement : MonoBehaviour
 {
     public List<Transform> BodyParts = new List<Transform>();
 
-    public float mindistance = 0.25f;
+    public float mindistance = 0.35f;
 
     public float constY = 0.5f;
 
@@ -24,6 +24,7 @@ public class SnakeMovement : MonoBehaviour
     public Text currentScore;
     public Text scoreText;
     public GameObject deathScreen;
+    public GameObject winScreen;
 
     private float dis;
     private Transform curBodyPart;
@@ -31,6 +32,9 @@ public class SnakeMovement : MonoBehaviour
 
     public bool isAlive;
 
+    private int bonus = 50;
+
+    public int level = 1;
 
 
     // Start is called before the first frame update
@@ -44,6 +48,8 @@ public class SnakeMovement : MonoBehaviour
         TimeFromLastRetry = Time.time;
 
         deathScreen.SetActive(false);
+
+        winScreen.SetActive(false);
 
         for (int i = BodyParts.Count - 1; i > 0; i--)
         {
@@ -148,5 +154,20 @@ public class SnakeMovement : MonoBehaviour
 
             BodyParts.Remove(BodyParts[i]);
         }
+    }
+
+    public void win()
+    {
+        isAlive = false;
+
+        scoreText.text = "Your score is: " + (BodyParts.Count - beginsize + bonus).ToString();
+
+        currentScore.gameObject.SetActive(false);
+
+        winScreen.SetActive(true);
+
+        level += 1;
+
+
     }
 }
