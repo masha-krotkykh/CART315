@@ -36,10 +36,15 @@ public class SnakeMovement : MonoBehaviour
 
     public int level = 1;
 
+    private Rigidbody _rigidbody;
+    private float _localY = 0.5f;
+    public bool _freezeAlongY = true;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        _rigidbody = gameObject.GetComponent<Rigidbody>();
         StartLevel();
     }
 
@@ -80,8 +85,12 @@ public class SnakeMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(isAlive)
-            Move();
+
+        _localY = transform.localPosition.y;
+        if (_freezeAlongY) _localY = 0.5f;
+
+        if(isAlive)
+        Move();
 
         //if (Input.GetKey(KeyCode.Q))
         //AddBodyPart();
@@ -91,11 +100,13 @@ public class SnakeMovement : MonoBehaviour
     {
         float curspeed = speed;
 
+        
+
         if(Input.GetKey(KeyCode.W))
             curspeed *= 2;
 
-        if (Input.GetKey(KeyCode.S))
-            curspeed /= 2;
+        //if (Input.GetKey(KeyCode.S))
+            //curspeed /= 2;
 
         BodyParts[0].Translate(BodyParts[0].forward * curspeed * Time.smoothDeltaTime, Space.World);
 
@@ -135,7 +146,7 @@ public class SnakeMovement : MonoBehaviour
 
             currentScore.text = "Score: " + (BodyParts.Count - beginsize - 1).ToString();
         }
-        speed += .1f;
+        speed += .3f;
     }
 
     public void die()

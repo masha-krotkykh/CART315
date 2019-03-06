@@ -398,7 +398,7 @@ PrefabInstance:
     - target: {fileID: 8882634341340412908, guid: 97c0603f3d40a4fb0989bc254fa9492a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.13
+      value: 1.72
       objectReference: {fileID: 0}
     - target: {fileID: 8882634341340412908, guid: 97c0603f3d40a4fb0989bc254fa9492a,
         type: 3}
@@ -1914,6 +1914,7 @@ MonoBehaviour:
   winScreen: {fileID: 1317781530}
   isAlive: 1
   level: 1
+  _freezeAlongY: 1
 --- !u!4 &1191057163
 Transform:
   m_ObjectHideFlags: 0
