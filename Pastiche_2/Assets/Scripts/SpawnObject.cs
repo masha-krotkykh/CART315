@@ -8,11 +8,9 @@ public class SpawnObject : MonoBehaviour
 {
 
     public GameObject foodPrefab;
-
     public GameObject portalPrefab;
 
     public int maxFood = 10;
-
     public int maxPortals = 3;
 
     // variables to define spawning area
@@ -24,10 +22,7 @@ public class SpawnObject : MonoBehaviour
     void Start()
     {
         // At start creating first instances of food and portal
-        for (int i = 0; i < maxFood; i++)
-        {
-            SpawnFood();
-        }
+        RecalculateFood();
 
         for (int j = 0; j < maxPortals; j++)
         {
@@ -36,29 +31,33 @@ public class SpawnObject : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        // A cheat code to spawn food
-        if (Input.GetKey(KeyCode.Q))
-            SpawnFood();
-    }
+    //void Update()
+    //{
+    //    // A cheat code to spawn food
+    //    if (Input.GetKey(KeyCode.Q))
+    //        SpawnFood();
+    //}
 
     // Defining random position for every instance of food and instantiating it
     public void SpawnFood()
     {
-    
          Vector3 pos = center + new Vector3(Random.Range(-size.x / 2, size.x / 2), 0, Random.Range(-size.z / 2, size.z / 2));
          Instantiate(foodPrefab, pos, Quaternion.identity);
-
     }
 
     // Defining random position for every instance of portal and instantiating it
     public void SpawnPortal()
     {
           Vector3 pos = center + new Vector3(Random.Range(-size.x / 2, size.x / 2), 0, Random.Range(-size.z / 2, size.z / 2));
-
           Instantiate(portalPrefab, pos, Quaternion.identity);
+    }
 
+    public void RecalculateFood()
+    {
+        for (int i = 0; i < maxFood; i++)
+        {
+            SpawnFood();
+        }
     }
 
     // area to which spawning will be limited

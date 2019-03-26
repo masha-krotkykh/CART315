@@ -4,7 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - foodPrefab: {fileID: 2072876604694223455, guid: c175bec25d2634acb8b98f99f8bf0c3c,
+  - foodPrefab: {fileID: 2072876604694223455, guid: af433445544fe47c199fcc230bdb0da7,
       type: 3}
   - portalPrefab: {fileID: 907783397655837009, guid: 6c0a882b6a9924d3292b583794bf227f,
       type: 3}

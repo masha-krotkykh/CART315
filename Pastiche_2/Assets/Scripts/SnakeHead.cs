@@ -9,6 +9,8 @@ public class SnakeHead : MonoBehaviour
     public SnakeMovement movement;
     public SpawnObject SO;
 
+    public int timeLeft = 30;
+
 
     // Define behaviour on different collisions
     // ON COLLISION WITH FOOD OBJECT
@@ -31,7 +33,7 @@ public class SnakeHead : MonoBehaviour
         // ON COLLISION WITH PORTAL OBJECT
         else if (collision.gameObject.tag == "Portal")
         {
-            // Move snake "engine" to random positio within spaen area
+            // Move snake "engine" to random positio within span area
             this.transform.position = new Vector3(Random.Range(-SO.size.x / 2, SO.size.x / 2), 0.5f, Random.Range(-SO.size.z / 2, SO.size.z / 2));
 
             // Destroy portal instance
@@ -51,19 +53,36 @@ public class SnakeHead : MonoBehaviour
         }
 
         // ON COLLISION WITH GEM OBJECT
-        // is a win condition
-        else if (collision.gameObject.tag == "Finish")
+        // it disappears and number of food objects increases
+        else if (collision.gameObject.tag == "Bonus")
         {
-            movement.win();
+            collision.gameObject.SetActive(false);
+
+
+            for (int i = 0; i < 50; i++)
+            {
+                SO.SpawnFood();
+            }
+
+            Invoke("Restore", 10);
+
         }
 
         // ON COLLISION WITH OTHER OBJECTS (including walls and own tail)
         // Call die method
         // Destroy all snake body parts and all achieved progress, end game and activate death screen
-        else if (collision.transform != movement.BodyParts[1] && movement.isAlive && collision.gameObject.tag != "Safe" && collision.gameObject.tag != "Portal")
+        else if (collision.transform != movement.BodyParts[1] && movement.isAlive && collision.gameObject.tag != "Safe" && collision.gameObject.tag != "Portal" && collision.gameObject.tag != "Portal_safe" && collision.gameObject.tag != "Bonus")
         {
             if (Time.time - movement.TimeFromLastRetry > 5)
                 movement.die();
         }
     }
+
+    void Restore()
+    {
+        if(gameObject.tag == "Bonus") {
+            gameObject.SetActive(true);
+        }
+    }
 }
+

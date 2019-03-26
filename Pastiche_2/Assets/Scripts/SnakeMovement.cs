@@ -7,9 +7,8 @@ public class SnakeMovement : MonoBehaviour
 {
     public List<Transform> BodyParts = new List<Transform>();
 
-    public float mindistance = 0.35f;
-
-    public float constY = 0.5f;
+    public float mindistance = 0.4f;
+    public float constY = 0.25f;
 
     public int beginsize;
 
@@ -32,19 +31,17 @@ public class SnakeMovement : MonoBehaviour
 
     public bool isAlive;
 
-    private int bonus = 50;
-
     public int level = 1;
 
     private Rigidbody _rigidbody;
-    private float _localY = 0.5f;
+    private float _localY = 0.25f;
     public bool _freezeAlongY = true;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        _rigidbody = gameObject.GetComponent<Rigidbody>();
+        //_rigidbody = gameObject.GetComponent<Rigidbody>();
         StartLevel();
     }
 
@@ -63,7 +60,7 @@ public class SnakeMovement : MonoBehaviour
             BodyParts.Remove(BodyParts[i]);
         }
 
-        BodyParts[0].position = new Vector3(0, 0.5f, 0);
+        BodyParts[0].position = new Vector3(0, 0.25f, 0);
         BodyParts[0].rotation = Quaternion.identity;
         currentScore.gameObject.SetActive(true);
         currentScore.text = "Score: 0";
@@ -87,7 +84,7 @@ public class SnakeMovement : MonoBehaviour
     {
 
         _localY = transform.localPosition.y;
-        if (_freezeAlongY) _localY = 0.5f;
+        if (_freezeAlongY) _localY = 0.25f;
 
         if(isAlive)
         Move();
@@ -149,6 +146,8 @@ public class SnakeMovement : MonoBehaviour
         speed += .3f;
     }
 
+
+
     public void die()
     {
         isAlive = false;
@@ -167,18 +166,4 @@ public class SnakeMovement : MonoBehaviour
         }
     }
 
-    public void win()
-    {
-        isAlive = false;
-
-        scoreText.text = "Your score is: " + (BodyParts.Count - beginsize + bonus).ToString();
-
-        currentScore.gameObject.SetActive(false);
-
-        winScreen.SetActive(true);
-
-        level += 1;
-
-
-    }
 }
