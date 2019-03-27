@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SnakeMovement : MonoBehaviour
 {
@@ -41,12 +42,6 @@ public class SnakeMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //_rigidbody = gameObject.GetComponent<Rigidbody>();
-        StartLevel();
-    }
-
-    public void StartLevel() 
-    {
         TimeFromLastRetry = Time.time;
 
         deathScreen.SetActive(false);
@@ -71,12 +66,18 @@ public class SnakeMovement : MonoBehaviour
 
         for (int i = 0; i < beginsize; i++)
         {
-                AddBodyPart();
+            AddBodyPart();
         }
 
 
 
         BodyParts[0].position = new Vector3(2, constY, 0);
+    }
+
+    public void StartLevel(string name) 
+    {
+        SceneManager.LoadScene(name);
+
     }
 
     // Update is called once per frame
